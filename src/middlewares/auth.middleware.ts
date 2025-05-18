@@ -6,39 +6,42 @@ class AuthMiddleware {
     const { error } = loginSchema.validate(req.body);
     
     if (error) {
-      return res.status(400).json({ 
+      res.status(400).json({ 
         success: false,
         message: error.details[0].message 
       });
+      return;
     }
     
-    return next();
+    next();
   }
   
   validateRegister = (req: Request, res: Response, next: NextFunction) => {
     const { error } = registerSchema.validate(req.body);
     
     if (error) {
-      return res.status(400).json({ 
+      res.status(400).json({ 
         success: false,
         message: error.details[0].message 
       });
+      return;
     }
     
-    return next();
+    next();
   }
   
   validateChangePassword = (req: Request, res: Response, next: NextFunction) => {
     const { error } = changePasswordSchema.validate(req.body);
     
     if (error) {
-      return res.status(400).json({ 
+      res.status(400).json({ 
         success: false,
         message: error.details[0].message 
       });
+      return;
     }
     
-    return next();
+    next();
   }
 }
 

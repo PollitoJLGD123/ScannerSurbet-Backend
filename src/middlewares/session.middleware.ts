@@ -7,29 +7,32 @@ class SessionMiddleware {
       const authHeader = req.headers.authorization;
       
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
-        return res.status(401).json({ 
+        res.status(401).json({ 
           success: false,
           message: 'Se requiere token de autenticación' 
         });
+        return;
       }
       
       const token = authHeader.split(' ')[1];
       const decoded = verifyToken(token);
       
       if (!decoded) {
-        return res.status(401).json({ 
+        res.status(401).json({ 
           success: false,
           message: 'Token inválido o expirado' 
         });
+        return;
       }
       
       (req as any).user = decoded;
       next();
     } catch (error) {
-      return res.status(401).json({ 
+      res.status(401).json({ 
         success: false,
         message: 'Error de autenticación' 
       });
+      return;
     }
   }
 }

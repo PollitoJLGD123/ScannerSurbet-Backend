@@ -8,16 +8,18 @@ class AuthController {
       const loginData = req.body as ILoginRequest;
       const result = await AuthService.login(loginData);
       
-      return res.status(200).json({
+      res.status(200).json({
         success: true,
         message: 'Inicio de sesión exitoso',
         data: result
       });
+      return;
     } catch (error: any) {
-      return res.status(401).json({
+      res.status(401).json({
         success: false,
         message: error.message
       });
+      return;
     }
   }
   
@@ -26,16 +28,18 @@ class AuthController {
       const registerData = req.body as IRegisterRequest;
       const result = await AuthService.register(registerData);
       
-      return res.status(201).json({
+      res.status(201).json({
         success: true,
         message: 'Usuario registrado correctamente',
         data: result
       });
+      return;
     } catch (error: any) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: error.message
       });
+      return;
     }
   }
   
@@ -43,25 +47,28 @@ class AuthController {
     try {
       const user = (req as any).user;
       if (!user) {
-        return res.status(401).json({
+        res.status(401).json({
           success: false,
           message: 'Usuario no autenticado'
         });
+        return;
       }
       
       const passwordData = req.body as IChangePasswordRequest;
       const result = await AuthService.changePassword(user.userId, passwordData);
       
-      return res.status(200).json({
+      res.status(200).json({
         success: true,
         message: 'Contraseña actualizada correctamente',
         data: result
       });
+      return;
     } catch (error: any) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: error.message
       });
+      return;
     }
   }
 }

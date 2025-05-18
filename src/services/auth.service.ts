@@ -1,6 +1,6 @@
 import { User } from '../models/User.model';
 import { generateToken } from '../lib/jwt';
-import { comparePassword } from '../lib/encrypt';
+import { comparePassword, encryptPassword } from '../lib/encrypt';
 import { ILoginRequest, IRegisterRequest, IChangePasswordRequest, UserCreationAttributes } from '../types/auth.type';
 
 class AuthService {
@@ -79,10 +79,15 @@ class AuthService {
     
     const isPasswordValid = await comparePassword(currentPassword, user.password);
     if (!isPasswordValid) {
-      throw new Error('La contraseña actual es incorrecta');
+      throw new Error('La contraseña actual es incorrecta.');
+    }
+
+    const samePassword = await comparePassword(newPassword, user.password);
+    if (samePassword) {
+      throw new Error('La nueva contraseña debe ser distinta de la anterior.');
     }
     
-    user.password = newPassword;
+    user.password = await encryptPassword(newPassword);
     await user.save();
     
     return {
