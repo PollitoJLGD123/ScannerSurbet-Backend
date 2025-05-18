@@ -2,7 +2,7 @@ import { Secret } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const PORT = process.env.PORT || 4002;
+export const PORT = process.env.PORT || '4002';
 export const JWT_SECRET: Secret = process.env.JWT_SECRET || 'superSecretKey123';
 export const JWT_EXPIRATION= process.env.JWT_EXPIRATION || '24h';
 
