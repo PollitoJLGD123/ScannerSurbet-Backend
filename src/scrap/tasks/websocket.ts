@@ -34,8 +34,8 @@ export async function setupWebSocket(server: Server, context: BrowserContext, pa
     console.log('➡️ Ingresando en la página de prematch...');
 
     // scraping live y envio cada 0 segundos
-    setInterval(() =>sendData(page_init, "live", connectedClients), 0);
+    setInterval(async () => await sendData(page_init, "live", connectedClients), 0);
 
     // scraping prematch y envio cada 0 segundos
-    setInterval(() => sendData(page_prematch, "prematch", connectedClients), 0);
+    setInterval(async () => await sendData(page_prematch, "prematch", connectedClients), 4000);
 }

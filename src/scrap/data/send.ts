@@ -1,4 +1,4 @@
-import { scrapData } from "../tasks/scraper";
+import { scrapData } from "../tasks/scraper.js";
 import { organizationData } from "../generator/process";
 import { Page } from "playwright";
 
