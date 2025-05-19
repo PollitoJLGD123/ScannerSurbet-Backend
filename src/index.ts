@@ -4,8 +4,11 @@ import morgan from 'morgan';
 import { PORT } from './config/config';
 import { connectDB } from './config/database.config';
 import routes from './routes';
+import http from "http"
+import { startSession } from './scrap/start';
 
 const app = express();
+const server = http.createServer(app);
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -26,10 +29,13 @@ const startServer = async () => {
   try {
   
     await connectDB();
-    
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+
+    server.listen(PORT, async () => {
+      console.log(`Server running on port http://localhost:${PORT}`);
+      await startSession(server); 
+      //setupWebSocket(server, context);
     });
+
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);

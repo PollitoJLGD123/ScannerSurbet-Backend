@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 import { DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER } from './config';
-import { User } from '../models/User.model';
+import { User } from '../models/user.model';
 
 const sequelize = new Sequelize({
   dialect: 'mysql',
