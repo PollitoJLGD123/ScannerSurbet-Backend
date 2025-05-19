@@ -33,7 +33,6 @@ const startServer = async () => {
     server.listen(PORT, async () => {
       console.log(`Server running on port http://localhost:${PORT}`);
       await startSession(server); 
-      //setupWebSocket(server, context);
     });
 
   } catch (error) {
