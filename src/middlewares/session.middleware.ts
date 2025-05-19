@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../lib/jwt';
+import { isBlacklisted } from '../lib/tokenBlacklist';
 
 class SessionMiddleware {
   authenticate = async (req: Request, res: Response, next: NextFunction) => {
@@ -15,6 +16,11 @@ class SessionMiddleware {
       }
       
       const token = authHeader.split(' ')[1];
+      if (isBlacklisted(token)) {
+        res.status(401).json({ success: false, message: 'Token inválido o sesión cerrada' });
+        return;
+      }
+      
       const decoded = verifyToken(token);
       
       if (!decoded) {

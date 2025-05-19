@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import AuthService from '../services/auth.service';
 import { ILoginRequest, IRegisterRequest, IChangePasswordRequest } from '../types/auth.type';
+import { blacklistToken } from '../lib/tokenBlacklist';
 
 class AuthController {
   login = async (req: Request, res: Response) => {
@@ -68,6 +69,23 @@ class AuthController {
         success: false,
         message: error.message
       });
+      return;
+    }
+  }
+  
+  logout = async (req: Request, res: Response) => {
+    try {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        res.status(400).json({ success: false, message: 'No token proporcionado' });
+        return;
+      }
+      const token = authHeader.split(' ')[1];
+      blacklistToken(token);
+      res.status(200).json({ success: true, message: 'Sesión cerrada correctamente' });
+      return;
+    } catch (error: any) {
+      res.status(500).json({ success: false, message: 'Error al cerrar sesión' });
       return;
     }
   }
