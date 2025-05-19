@@ -1,4 +1,4 @@
-import { User } from '../models/User.model';
+import { User } from '../models/user.model';
 import { generateToken } from '../lib/jwt';
 import { comparePassword, encryptPassword } from '../lib/encrypt';
 import { ILoginRequest, IRegisterRequest, IChangePasswordRequest, UserCreationAttributes } from '../types/auth.type';

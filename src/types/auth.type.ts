@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import { InferCreationAttributes } from 'sequelize';
-import { User } from '../models/User.model';
+import { User } from '../models/user.model';
 
 
 export interface ILoginRequest {
