@@ -13,14 +13,15 @@ export const sendData = async (page: Page, type = 'live', connectedClients: WebS
 
         console.log('➡️ Datos scrapeados de ', type,  ": ", data.length);
 
+        let processedData:any[] = []
+
         // validar data
         if (!data || !Array.isArray(data) || data.length === 0) {
             console.warn("❌ Datos vacíos o inválidos");
-            scraping = false;
-            return;
         }
-
-        const processedData = await organizationData(data);
+        else{
+            processedData = await organizationData(data);
+        }
 
         connectedClients.forEach(ws => {
             if (ws.readyState === ws.OPEN) {
