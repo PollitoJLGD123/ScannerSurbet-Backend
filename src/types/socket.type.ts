@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export interface WebSocketWithEvents extends WebSocket {
     on(event: 'close', listener: () => void): this;
     on(event: 'error', listener: (err: Error) => void): this;

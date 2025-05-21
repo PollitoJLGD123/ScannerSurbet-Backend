@@ -5,7 +5,7 @@ import { PORT } from './config/config';
 import { connectDB } from './config/database.config';
 import routes from './routes';
 import http from "http"
-import { startSession } from './scrap/start';
+import { connectSocket } from './socket/socket';
 
 const app = express();
 const server = http.createServer(app);
@@ -29,10 +29,10 @@ const startServer = async () => {
   try {
   
     await connectDB();
+    await connectSocket(server);
 
-    server.listen(PORT, async () => {
-      console.log(`Server running on port http://localhost:${PORT}`);
-      await startSession(server); 
+    server.listen(PORT, () => {
+      console.log(`Server corriendo en puerto http://localhost:${PORT}`);
     });
 
   } catch (error) {
