@@ -1,5 +1,5 @@
 import { WebSocketServer } from 'ws';
-import { createPage } from "../pages/create.js";
+import { createPage } from "../pages/create";
 import { Browser, BrowserContext, Page } from 'playwright';
 import { sendData } from '../data/send';
 import { WebSocketWithEvents } from '../../types/socket.type';
@@ -43,7 +43,7 @@ export async function setupWebSocket(server: Server, context: BrowserContext, pa
         console.log('➡️ Ingresando en la página de prematch...');
 
         // scraping live y envio cada 0 segundos
-        setInterval(async () => await sendData(page_init, "live", connectedClients), 0);
+        setInterval(async () => await sendData(page_init, "live", connectedClients), 500);
 
         // scraping prematch y envio cada 0 segundos
         setInterval(async () => await sendData(page_prematch, "prematch", connectedClients), 4000);
@@ -52,5 +52,4 @@ export async function setupWebSocket(server: Server, context: BrowserContext, pa
         console.error('❌ Error al prender socket o iniciar una pagina', err);
         return;
     }
-
 }

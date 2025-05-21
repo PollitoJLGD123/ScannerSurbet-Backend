@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import authRoutes from './auth.routes';
+import authRoutes from './auth.route';
 import userRoutes from './user.route';
 import SessionMiddleware from '../middlewares/session.middleware';
 
