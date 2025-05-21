@@ -24,7 +24,7 @@ export const scrapData = async (page: Page, type = 'live') => {
                 const middle_value = (item.querySelector("span.bg-yellow-500")?.textContent?.trim() || null) as string;
                 const sportName = (item.querySelector(".col-span-7 > span.font-semibold")?.textContent?.trim() || null) as string;
                 const period = (item.querySelector(".col-span-7 > span.font-normal")?.textContent?.trim() || null) as string;
-                const time = (item.querySelector(".col-span-2 > p.ng-tns-c1499674981-3")?.textContent?.trim() || null) as string;
+                const time = (item.querySelector(".col-span-2 > p")?.textContent?.trim() ?? null) as string;  // <- ¡CORREGIDO!
 
                 const sections: SectionSurebet[] = [];
 
@@ -32,7 +32,6 @@ export const scrapData = async (page: Page, type = 'live') => {
                     const book_name = (event.querySelector("img.h-6") as HTMLImageElement | null)?.alt || null;
                     const textInfo = (event.querySelector("p.text-gray-500") as HTMLElement | null)?.innerText.trim() || null;
 
-                    // en live  es score, en prematch es date_game
                     const score =  (isLive ? textInfo : null) as string;
                     const date_game = (!isLive ? textInfo : null) as string;
 
@@ -44,7 +43,6 @@ export const scrapData = async (page: Page, type = 'live') => {
 
                     const arrowClass = (arrow === "UP" ? "icomoon-arrow-up" : arrow === "DOWN" ? "icomoon-arrow-down" : null) as string;
 
-                    // verificar si al menos  un campo importante tiene un valor válido
                     if (book_name || textInfo || event_name || league_name || market || odds) {
                         const sectionData: SectionSurebet = {
                             book_name: (book_name && changeBookName(book_name)) as string,
@@ -55,7 +53,6 @@ export const scrapData = async (page: Page, type = 'live') => {
                             arrowClass
                         };
 
-                        // agregar score o date_game según el tipo
                         if (isLive) {
                             sectionData.score = score;
                         } else {
@@ -79,8 +76,6 @@ export const scrapData = async (page: Page, type = 'live') => {
                     },
                     sections,
                 });
-
-                console.log("➡️ Datos scrapeados de ", scrapeType,  ": ", surebet[surebet.length - 1].header.time);
             });
 
             return surebet;

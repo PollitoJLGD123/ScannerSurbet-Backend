@@ -11,7 +11,7 @@ export interface HeaderSurebet {
     home2: string;
     period: string;
     middle_value: string;
-    time: string;
+    time: string | any;
 }
 
 export interface SectionSurebet {

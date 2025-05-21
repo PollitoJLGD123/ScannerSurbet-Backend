@@ -11,13 +11,13 @@ export const sendData = async (page: Page, type = 'live', connectedClients: WebS
     try {
         const data = await scrapData(page, type);
 
-        console.log('➡️ Datos scrapeados de ', type,  ": ", data.length);
+        //console.log('➡️ Datos scrapeados de ', type,  ": ", data.length);
 
-        let processedData:any[] = []
+        let processedData:any[]
 
         // validar data
         if (!data || !Array.isArray(data) || data.length === 0) {
-            console.warn("❌ Datos vacíos o inválidos");
+            processedData = []
         }
         else{
             processedData = await organizationData(data);
