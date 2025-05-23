@@ -60,7 +60,7 @@ export class User extends Model {
 
   @Column({
     type: DataType.BOOLEAN,
-    defaultValue: true
+    defaultValue: false
   })
   active!: boolean;
 
