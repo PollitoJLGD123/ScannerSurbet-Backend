@@ -1,7 +1,6 @@
 import { Router, Request, Response } from 'express';
 import authRoutes from './auth.routes';
 import userRoutes from './user.route';
-import SessionMiddleware from '../middlewares/session.middleware';
 
 const router = Router();
 

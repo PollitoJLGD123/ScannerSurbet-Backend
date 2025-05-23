@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { loginSchema, registerSchema, changePasswordSchema } from '../validators/auth.validator';
 
-class AuthMiddleware {
-  validateLogin = (req: Request, res: Response, next: NextFunction) => {
+const validateLogin = (req: Request, res: Response, next: NextFunction) => {
     const { error } = loginSchema.validate(req.body);
     
     if (error) {
@@ -16,7 +15,7 @@ class AuthMiddleware {
     next();
   }
   
-  validateRegister = (req: Request, res: Response, next: NextFunction) => {
+const validateRegister = (req: Request, res: Response, next: NextFunction) => {
     const { error } = registerSchema.validate(req.body);
     
     if (error) {
@@ -30,7 +29,7 @@ class AuthMiddleware {
     next();
   }
   
-  validateChangePassword = (req: Request, res: Response, next: NextFunction) => {
+const validateChangePassword = (req: Request, res: Response, next: NextFunction) => {
     const { error } = changePasswordSchema.validate(req.body);
     
     if (error) {
@@ -43,6 +42,5 @@ class AuthMiddleware {
     
     next();
   }
-}
 
-export default new AuthMiddleware();
+export { validateLogin, validateRegister, validateChangePassword };

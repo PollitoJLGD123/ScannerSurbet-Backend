@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User.model';
 
-class UserController {
-  me = async (req: Request, res: Response) => {
+const me = async (req: Request, res: Response) => {
     try {
       const tokenUser = (req as any).user;
       
@@ -41,6 +40,5 @@ class UserController {
       return
     }
   }
-}
 
-export default new UserController();
+export { me };

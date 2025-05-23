@@ -1,13 +1,12 @@
 import { Request, Response } from 'express';
-import AuthService from '../services/auth.service';
+import * as authService from '../services/auth.service';
 import { ILoginRequest, IRegisterRequest, IChangePasswordRequest } from '../types/auth.type';
 import { blacklistToken } from '../lib/tokenBlacklist';
 
-class AuthController {
-  login = async (req: Request, res: Response) => {
+const login = async (req: Request, res: Response) => {
     try {
       const loginData = req.body as ILoginRequest;
-      const result = await AuthService.login(loginData);
+      const result = await authService.login(loginData);
       
       res.status(200).json({
         success: true,
@@ -24,10 +23,10 @@ class AuthController {
     }
   }
   
-  register = async (req: Request, res: Response) => {
+const register = async (req: Request, res: Response) => {
     try {
       const registerData = req.body as IRegisterRequest;
-      const result = await AuthService.register(registerData);
+      const result = await authService.register(registerData);
       
       res.status(201).json({
         success: true,
@@ -44,7 +43,7 @@ class AuthController {
     }
   }
   
-  changePassword = async (req: Request, res: Response) => {
+const changePassword = async (req: Request, res: Response) => {
     try {
       const user = (req as any).user;
       if (!user) {
@@ -56,7 +55,7 @@ class AuthController {
       }
       
       const passwordData = req.body as IChangePasswordRequest;
-      const result = await AuthService.changePassword(user.userId, passwordData);
+      const result = await authService.changePassword(user.userId, passwordData);
       
       res.status(200).json({
         success: true,
@@ -73,7 +72,7 @@ class AuthController {
     }
   }
   
-  logout = async (req: Request, res: Response) => {
+const logout = async (req: Request, res: Response) => {
     try {
       const authHeader = req.headers.authorization;
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -89,6 +88,5 @@ class AuthController {
       return;
     }
   }
-}
 
-export default new AuthController();
+export { login, register, logout, changePassword };

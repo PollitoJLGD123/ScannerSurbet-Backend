@@ -1,29 +1,29 @@
 import { Router } from 'express';
-import AuthController from '../controllers/auth.controller';
-import AuthMiddleware from '../middlewares/auth.middleware';
-import SessionMiddleware from '../middlewares/session.middleware';
+import { login, register, changePassword, logout } from '../controllers/auth.controller';
+import * as authMiddleware from '../middlewares/auth.middleware';
+import { authenticate } from '../middlewares/session.middleware';
 
 const router = Router();
 
 router.post('/login', 
-  AuthMiddleware.validateLogin, 
-  AuthController.login
+  authMiddleware.validateLogin, 
+  login
 );
 
 router.post('/register', 
-  AuthMiddleware.validateRegister, 
-  AuthController.register
+  authMiddleware.validateRegister, 
+  register
 );
 
 router.post('/change-password', 
-  SessionMiddleware.authenticate,
-  AuthMiddleware.validateChangePassword, 
-  AuthController.changePassword
+  authenticate,
+  authMiddleware.validateChangePassword, 
+  changePassword
 );
 
 router.post('/logout', 
-  SessionMiddleware.authenticate,
-  AuthController.logout
+  authenticate,
+  logout
 );
 
 export default router;

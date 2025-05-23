@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import UserController from '../controllers/user.controller';
-import SessionMiddleware from '../middlewares/session.middleware';
+import { me } from '../controllers/user.controller';
+import { authenticate } from '../middlewares/session.middleware';
 
 const router = Router();
 
 // Obtener perfil del usuario autenticado
-router.get('/me', SessionMiddleware.authenticate, UserController.me);
+router.get('/me', authenticate, me);
 
 export default router;
