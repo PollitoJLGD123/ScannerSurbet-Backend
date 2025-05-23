@@ -13,7 +13,7 @@ class AuthService {
     }
     
     if (!user.active) {
-      throw new Error('La cuenta ha sido desactivada. Contacte con soporte');
+      throw new Error('La cuenta esta inactiva. Contacte con soporte');
     }
     
     const isPasswordValid = await comparePassword(password, user.password);
@@ -55,10 +55,11 @@ class AuthService {
     
     const user = await User.create(userToCreate);
     
-    const token = generateToken({ userId: user.id, email: user.correo });
+    
+    //const token = generateToken({ userId: user.id, email: user.correo });
     
     return {
-        token,
+        //token,
         user: {
             id: user.id,
             nombres: user.nombres,
