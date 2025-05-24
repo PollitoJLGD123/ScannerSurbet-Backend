@@ -2,8 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../lib/jwt';
 import { isBlacklisted } from '../lib/tokenBlacklist';
 
-class SessionMiddleware {
-  authenticate = async (req: Request, res: Response, next: NextFunction) => {
+const authenticate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const authHeader = req.headers.authorization;
       
@@ -41,6 +40,6 @@ class SessionMiddleware {
       return;
     }
   }
-}
 
-export default new SessionMiddleware();
+
+export { authenticate };
